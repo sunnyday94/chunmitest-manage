@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunmi.chunmitest.mapper.TestRecordMapper">
+  <resultMap id="BaseResultMap" type="com.chunmi.chunmitest.po.TestRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="setting_id" jdbcType="BIGINT" property="settingId" />
+    <result column="test_result" jdbcType="VARCHAR" property="testResult" />
+    <result column="compare_result" jdbcType="CHAR" property="compareResult" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="del_time" jdbcType="TIMESTAMP" property="delTime" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, setting_id, test_result, compare_result, create_time, update_time, del_time, 
+    del_flag, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_test_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_test_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.chunmi.chunmitest.po.TestRecord">
+    insert into cm_test_record (id, setting_id, test_result, 
+      compare_result, create_time, update_time, 
+      del_time, del_flag, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{settingId,jdbcType=BIGINT}, #{testResult,jdbcType=VARCHAR}, 
+      #{compareResult,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chunmi.chunmitest.po.TestRecord">
+    insert into cm_test_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="settingId != null">
+        setting_id,
+      </if>
+      <if test="testResult != null">
+        test_result,
+      </if>
+      <if test="compareResult != null">
+        compare_result,
+      </if>
+        create_time,
+        update_time,
+      <if test="delTime != null">
+        del_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="settingId != null">
+        #{settingId,jdbcType=BIGINT},
+      </if>
+      <if test="testResult != null">
+        #{testResult,jdbcType=VARCHAR},
+      </if>
+      <if test="compareResult != null">
+        #{compareResult,jdbcType=CHAR},
+      </if>
+        NOW(),NOW(),
+      <if test="delTime != null">
+        #{delTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chunmi.chunmitest.po.TestRecord">
+    update cm_test_record
+    <set>
+      <if test="settingId != null">
+        setting_id = #{settingId,jdbcType=BIGINT},
+      </if>
+      <if test="testResult != null">
+        test_result = #{testResult,jdbcType=VARCHAR},
+      </if>
+      <if test="compareResult != null">
+        compare_result = #{compareResult,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+        update_time = NOW(),
+      <if test="delTime != null">
+        del_time = #{delTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chunmi.chunmitest.po.TestRecord">
+    update cm_test_record
+    set setting_id = #{settingId,jdbcType=BIGINT},
+      test_result = #{testResult,jdbcType=VARCHAR},
+      compare_result = #{compareResult,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = NOW(),
+      del_time = #{delTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据settingId查询测试记录 -->
+  <select id="getTestRecordListBySettingId" resultType="com.chunmi.chunmitest.vo.TestRecordVo">
+  	select s.expected_result as expectedResult,
+  	r.id as id,
+  	r.test_result as testResult,
+  	r.compare_result as compareResult
+    from cm_test_record r
+  	join cm_test_setting s on r.setting_id = s.id 
+  	where r.setting_id = #{settingId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 添加测试记录信息(添加集合) -->
+  <insert id="insertTestRecordList" parameterType="java.util.List">
+    insert into cm_test_record (id, setting_id, test_result, 
+      compare_result, create_time, update_time, 
+      del_time, del_flag, remark
+      ) values
+      <foreach collection="recordList" separator="," item="testRecord">
+      	(#{testRecord.id,jdbcType=BIGINT},#{testRecord.settingId,jdbcType=BIGINT},
+      	#{testRecord.testResult,jdbcType=VARCHAR},#{testRecord.compareResult,jdbcType=CHAR},
+      	NOW(),NOW(),#{testRecord.delTime,jdbcType=TIMESTAMP},'0',#{testRecord.remark,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+  
+  <select id="selectBySettingId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List"/>
+	from cm_test_record where setting_id = #{settingId,jdbcType=BIGINT} and remark IS NULL
+  </select>
+	
+  <select id="selectBySettingIdAndRemark" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from cm_test_record 
+  	where setting_id = #{id,jdbcType=BIGINT} and remark = #{remark,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateTestRecordBySettingIdAndRemark">
+  	update cm_test_record set del_flag = '1' 
+  	where setting_id = #{id,jdbcType=BIGINT} and remark = #{remark,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectTestRecordsBySettingId" resultType="java.lang.String">
+  	select test_result from cm_test_record  
+  	where setting_id = #{id,jdbcType=BIGINT} and del_flag = '0' and remark is null
+  </select>
+  
+  <select id="selectRegressionsBySettingId" resultType="java.lang.String">
+  	select test_result from cm_test_record 
+  	where setting_id = #{id,jdbcType=BIGINT} and del_flag='0' and  remark = '回归测试'
+  </select>
+  
+</mapper>

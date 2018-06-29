@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunmi.chunmitest.mapper.TestSettingMapper">
+  <resultMap id="BaseResultMap" type="com.chunmi.chunmitest.po.TestSetting">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="request_url" jdbcType="VARCHAR" property="requestUrl" />
+    <result column="concurrent_num" jdbcType="BIGINT" property="concurrentNum" />
+    <result column="interface_name" jdbcType="VARCHAR" property="interfaceName" />
+    <result column="request_mode" jdbcType="CHAR" property="requestMode" />
+    <result column="request_params" jdbcType="VARCHAR" property="requestParams" />
+    <result column="test_case_des" jdbcType="VARCHAR" property="testCaseDes" />
+    <result column="expected_result" jdbcType="VARCHAR" property="expectedResult" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="del_time" jdbcType="TIMESTAMP" property="delTime" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="token" jdbcType="VARCHAR" property="token"/>
+    <result column="is_need_sign" jdbcType="CHAR" property="isNeedSign"/>
+    <result column="sign_type" jdbcType="CHAR" property="signType"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, request_url, concurrent_num, interface_name, request_mode,request_params, 
+    test_case_des, expected_result, create_time, update_time, del_time, del_flag, remark,
+    token,is_need_sign,sign_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_test_setting
+    where del_flag = '0' and id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_test_setting
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.chunmi.chunmitest.po.TestSetting">
+    insert into cm_test_setting (id, request_url, concurrent_num, 
+      interface_name, request_mode, 
+      request_params, test_case_des, expected_result, 
+      create_time, update_time, del_time, 
+      del_flag, remark,token,is_need_sign,sign_type)
+    values (#{id,jdbcType=BIGINT}, #{requestUrl,jdbcType=VARCHAR}, #{concurrentNum,jdbcType=BIGINT}, 
+      #{interfaceName,jdbcType=VARCHAR}, #{requestMode,jdbcType=CHAR}, #{headerParams,jdbcType=VARCHAR}, 
+      #{requestParams,jdbcType=VARCHAR}, #{testCaseDes,jdbcType=VARCHAR}, #{expectedResult,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR},#{token,jdbcType=VARCHAR},#{isNeedSign,jdbcType=CHAR},
+      #{signType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chunmi.chunmitest.po.TestSetting">
+    insert into cm_test_setting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="requestUrl != null">
+        request_url,
+      </if>
+      <if test="concurrentNum != null">
+        concurrent_num,
+      </if>
+      <if test="interfaceName != null">
+        interface_name,
+      </if>
+      <if test="requestMode != null">
+        request_mode,
+      </if>
+      <if test="requestParams != null">
+        request_params,
+      </if>
+      <if test="testCaseDes != null">
+        test_case_des,
+      </if>
+      <if test="expectedResult != null">
+        expected_result,
+      </if>
+        create_time,
+        update_time,
+      <if test="delTime != null">
+        del_time,
+      </if>
+        del_flag,
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="token !=null">
+      	token,
+      </if>
+      <if test="isNeedSign !=null">
+      	is_need_sign,
+      </if>
+      <if test="signType !=null">
+      	sign_type
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="requestUrl != null">
+        #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="concurrentNum != null">
+        #{concurrentNum,jdbcType=BIGINT},
+      </if>
+      <if test="interfaceName != null">
+        #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMode != null">
+        #{requestMode,jdbcType=CHAR},
+      </if>
+      <if test="requestParams != null">
+        #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="testCaseDes != null">
+        #{testCaseDes,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedResult != null">
+        #{expectedResult,jdbcType=VARCHAR},
+      </if>
+      	NOW(),
+        NOW(),
+      <if test="delTime != null">
+        #{delTime,jdbcType=TIMESTAMP},
+      </if>
+       '0',
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="token !=null">
+      	#{token,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedSign !=null">
+      	#{isNeedSign,jdbcType=CHAR},
+      </if>
+      <if test="signType !=null">
+      	#{signType,jdbcType=CHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chunmi.chunmitest.po.TestSetting">
+    update cm_test_setting
+    <set>
+      <if test="requestUrl != null">
+        request_url = #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="concurrentNum != null">
+        concurrent_num = #{concurrentNum,jdbcType=BIGINT},
+      </if>
+      <if test="interfaceName != null">
+        interface_name = #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMode != null">
+        request_mode = #{requestMode,jdbcType=CHAR},
+      </if>
+      <if test="requestParams != null">
+        request_params = #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="testCaseDes != null">
+        test_case_des = #{testCaseDes,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedResult != null">
+        expected_result = #{expectedResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delTime != null">
+        del_time = #{delTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="token !=null">
+      	token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedSign !=null">
+      	is_need_sign = #{isNeedSign,jdbcType=CHAR},
+      </if>
+      <if test="signType !=null">
+      	sign_typ = #{signType,jdbcType=CHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chunmi.chunmitest.po.TestSetting">
+    update cm_test_setting
+    set request_url = #{requestUrl,jdbcType=VARCHAR},
+      concurrent_num = #{concurrentNum,jdbcType=BIGINT},
+      interface_name = #{interfaceName,jdbcType=VARCHAR},
+      request_mode = #{requestMode,jdbcType=CHAR},
+      request_params = #{requestParams,jdbcType=VARCHAR},
+      test_case_des = #{testCaseDes,jdbcType=VARCHAR},
+      expected_result = #{expectedResult,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_time = #{delTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      is_need_sign = #{isNeedSign,jdbcType=CHAR},
+      sign_type = #{signType,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="delSettingById" parameterType="java.util.Map" >
+		update cm_test_setting set del_flag = '1' where id in
+		<foreach collection="ids" item="Id" open="(" close=")" separator=",">
+			#{Id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from cm_test_setting where del_flag = '0'
+	</select>
+	
+	<select id="selectConfigCounts" resultType="int">
+		select count(1) from cm_test_setting where del_flag = '0'
+	</select>
+	
+	<!-- 分页查询接口配置 -->
+	<select id="selectAllByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from cm_test_setting where del_flag = '0'
+		ORDER BY create_time desc limit #{pageRequest.page}, #{pageRequest.pageSize}
+	</select>
+	
+	<!-- 查询上一个主键id -->
+	<select id="selectLastId" resultType="java.lang.Long">
+		SELECT id FROM cm_test_setting ORDER BY id DESC LIMIT 1
+	</select>
+	
+	<!-- 分页查询接口配置信息 -->
+	<select id="selectAllBySetting" resultMap="BaseResultMap" parameterType="com.chunmi.chunmitest.po.TestSetting">
+		select 
+		<include refid="Base_Column_List" />
+		from cm_test_setting where del_flag = '0'
+		<if test="setting != null and setting.requestUrl != null and setting.requestUrl != '' ">
+			and	request_url like  CONCAT(CONCAT('%', #{setting.requestUrl}),'%')
+		</if>
+		<if test="setting != null and setting.interfaceName != null and setting.interfaceName != '' ">
+			and  interface_name CONCAT(CONCAT('%', #{setting.interfaceName}),'%')
+		</if>
+		<if test="setting != null and setting.requestMode != null and setting.requestMode != ''">
+			and request_mode = #{setting.requestMode,jdbcType=CHAR}
+		</if>
+		ORDER BY id DESC LIMIT #{pageRequest.page}, #{pageRequest.pageSize}
+   </select>
+
+	<select id="selectCountBySetting" resultType="java.lang.Long" parameterType="com.chunmi.chunmitest.po.TestSetting">
+		select count(1)
+		from cm_test_setting where del_flag = '0'
+		<if
+			test="setting != null and setting.requestUrl != null and setting.requestUrl != '' ">
+			and	request_url like  CONCAT(CONCAT('%', #{setting.requestUrl}),'%')
+		</if>
+		<if
+			test="setting != null and setting.interfaceName != null and setting.interfaceName != '' ">
+			and  interface_name CONCAT(CONCAT('%', #{setting.interfaceName}),'%')
+		</if>
+		<if test="setting != null and setting.requestMode != null and setting.requestMode != '' ">
+			and request_mode = #{setting.requestMode,jdbcType=CHAR}
+		</if>
+
+	</select>
+</mapper>
