@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -71,7 +72,7 @@ public class TestSettingController {
 	 */
 	@RequestMapping(value="delSetting",method = RequestMethod.POST)
 	@ResponseBody
-	public void delSetting(Long[] ids) {
+	public void delSetting(@RequestParam("ids") Long[] ids) {
 		try {
 			if (null != ids && ids.length > 0) {
 				Map<String, Object> map = new HashMap<>();
