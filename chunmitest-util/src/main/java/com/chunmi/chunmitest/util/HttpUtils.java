@@ -82,7 +82,7 @@ public class HttpUtils {
 	
 	/**
 	 * 
-	 * @description: <p class="detail">获取网络响应数据</p>
+	 * @description: <p class="detail">获取http响应数据</p>
 	 * @author: <a href="mailto:wangzhifang@chunmi.com ">wangzhifang</a>
 	 * @date: 2017年6月9日-下午2:50:44
 	 * @param @param strUrl
@@ -98,6 +98,7 @@ public class HttpUtils {
 		DataOutputStream out = null;
 		BufferedReader reader = null;
 		try {
+			//修改get请求专属
 			if(!requestParams.isEmpty() && requestParams!=null){
 				Map<String,Object> params = (Map<String,Object>)JSONObject.parseObject(requestParams);
 				requestParams = urlencode(params);
@@ -154,7 +155,7 @@ public class HttpUtils {
 			result = sb.toString();
 				
 		} catch (Exception e) {
-			LOGGER.error("请求连接失败:{}",e.getMessage());
+			e.printStackTrace();
 		}finally{
 			if(reader!=null){
 				try {

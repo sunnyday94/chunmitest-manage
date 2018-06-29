@@ -17,8 +17,8 @@ tbody>tr>td{word-break:break-all;}
 						<tr>
 							<th width="40%">期望结果</th>
 							<th width="40%">测试结果</th>
-							<th width="10%">比较结果</th>
-							<th width="10%">校验JSON</th>
+							<%-- <th width="10%">比较结果</th> --%>
+							<th width="20%">校验JSON</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,13 +31,15 @@ tbody>tr>td{word-break:break-all;}
 							<tr>
 								<td width="40%">${testRecord.expectedResult }</td>
 								<td width="40%">${testRecord.testResult }</td>
+								<%-- 
 								<c:if test="${testRecord.compareResult eq '0'}">
 									<td width="10%"><p style="color: red">不一致</p></td>
 								</c:if>
 								<c:if test="${testRecord.compareResult eq '1' }">
 									<td width="10%"><p style="color: green;">一致</p></td>
 								</c:if>
-								<td width="10%"><button type="button" class="btn bg-green btn-flat" onclick="javascript:window.open('http://www.bejson.com/')">点击校验</button></td>
+								--%>
+								<td width="20%"><button type="button" class="btn bg-green btn-flat" onclick="javascript:window.open('http://www.bejson.com/')">点击校验</button></td>
 							<tr>
 						</c:forEach>
 					</tbody>
@@ -50,6 +52,8 @@ tbody>tr>td{word-break:break-all;}
 <script type="text/javascript">
  
 $(function () { $("[data-toggle='tooltip']").tooltip(); });
+	//以下方法已废弃
+
 	//点击保存
 	function saveRecord(compareResult,recordId){
 		if(compareResult == '0'){

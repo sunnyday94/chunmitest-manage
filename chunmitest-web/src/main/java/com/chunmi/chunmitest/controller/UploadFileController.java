@@ -45,10 +45,12 @@ public class UploadFileController {
 	@ResponseBody
 	public Response uploadFile(HttpServletRequest req,MultipartFile file){
 		try {
+			//最大图片为2M
 			if(file.getSize() > 2 * 1024 * 1024){
 				return Response.getError(MessageExceptionEnum.PIC_TOO_LARGE);
 			}else{
 				String targetPath = req.getServletContext().getRealPath("/image/headPic");
+				//创建图片保存目录
 				File saveDir = new File(targetPath);
 				if(!saveDir.exists())
 					saveDir.mkdir();

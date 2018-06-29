@@ -37,7 +37,7 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">让美味更简单</p>
+			<p class="login-box-msg">【打破争议 快速迭代】</p>
 			<div class="form-group has-feedback">
 				<input type="text" class="form-control" placeholder="用户名"
 					name="name" id="name" autocomplete="off"/> <span

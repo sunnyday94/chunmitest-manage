@@ -1,8 +1,11 @@
 package com.chunmi.chunmitest.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TestRecord {
+
+@SuppressWarnings("serial")
+public class TestRecord implements Serializable {
 	/**
 	 * 主键
 	 */

@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.druid.util.StringUtils;
 import com.chunmi.chunmitest.mapper.TestRecordMapper;
 import com.chunmi.chunmitest.mapper.TestSettingMapper;
 import com.chunmi.chunmitest.po.TestRecord;
@@ -93,7 +94,7 @@ public class TestSettingServiceImpl implements TestSettingService {
 			}
 			Long concurrentNum = testSetting.getConcurrentNum()==null ? 1 : testSetting.getConcurrentNum();    //并发数
 			String token = testSetting.getToken();  //请求头参数(token)
-			String requestParams = testSetting.getRequestParams().trim();  //请求参数
+			String requestParams = testSetting.getRequestParams(); //请求参数
 			String signType = testSetting.getSignType();   //sign生成规则
 			String sign = null;   //请求头参数(sign)
 			if(testSetting.getIsNeedSign().equals("1")){

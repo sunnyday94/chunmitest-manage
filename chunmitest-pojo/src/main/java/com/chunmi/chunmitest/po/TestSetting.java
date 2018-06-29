@@ -1,8 +1,10 @@
 package com.chunmi.chunmitest.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TestSetting {
+@SuppressWarnings("serial")
+public class TestSetting implements Serializable{
 	/**
 	 * 主键id
 	 */
@@ -86,6 +88,7 @@ public class TestSetting {
      * sign生成规则(0=默认)
      */
     private String signType;
+    
     
 
     public Long getId() {
@@ -215,5 +218,5 @@ public class TestSetting {
 	public void setSignType(String signType) {
 		this.signType = signType;
 	}
-    
+
 }

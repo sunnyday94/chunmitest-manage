@@ -63,14 +63,14 @@ public class InterfaceTestController {
 		page.setPageName(Constants.PAGE_INTERFACETEST+".jsp");
 		if(testSetting != null && testSetting.getId()!=null){
 			testSetting = testSettingService.selectByPrimaryKey(testSetting.getId());
-			if(testSetting.getRequestParams()!=null && !testSetting.getRequestParams().equals("")){
+			/*
+			if(testSetting.getRequestParams()!=null && !testSetting.getRequestParams().equals(""))
 				//该行代码将请求参数中单引号和双引号转义
-				testSetting.setRequestParams(testSetting.getRequestParams().replace("\"","&quot;").replace("'","&apos;"));
-			}
-			if(testSetting.getExpectedResult()!=null && !testSetting.getExpectedResult().equals("")){
+				testSetting.setRequestParams(testSetting.getRequestParams().replaceAll("\"","&quot;").replaceAll("'","&apos;"));
+			if(testSetting.getExpectedResult()!=null && !testSetting.getExpectedResult().equals(""))
 				//该行代码将期望结果中单引号和双引号转义
-				testSetting.setExpectedResult(testSetting.getExpectedResult().replace("\"","&quot;").replace("'","&apos;"));
-			}
+				testSetting.setRequestParams(testSetting.getRequestParams().replaceAll("\"","&quot;").replaceAll("'","&apos;"));
+			*/
 			mv.addObject("setting", testSetting);
 		}
 		return mv.addObject(Constants.PAGE, page).addObject("mark",mark);
@@ -89,11 +89,13 @@ public class InterfaceTestController {
 	 * @return String
 	 */
 	@RequestMapping(value="/recordsearch",method=RequestMethod.POST)
-	public String loadTestRecord(TestSetting testSetting,Model model,String mark){
+	public String loadTestRecord(TestSetting testSetting,Model model,String requestJson,String mark){
 		List<TestRecordVo> testRecordList = null;
 		try {
 			if(testSetting.getRequestUrl()!=null && !testSetting.getRequestUrl().isEmpty()
 					&& !mark.equals("0")){
+				if(requestJson!=null && !requestJson.isEmpty())
+					testSetting.setRequestParams(requestJson.trim().replaceAll("&quot;","\"").replaceAll("&apos;","'"));
 				//setting表插入记录
 				testSettingService.insertSelective(testSetting);
 				Long lastId = testSettingService.selectLastId();

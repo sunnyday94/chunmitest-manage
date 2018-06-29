@@ -221,6 +221,7 @@
 		siderBar("settinglist");
 	});
 	
+
 	function loadingPage(pageNo, pageSize) {
 		$("#pageNo").val(pageNo);
 		$("#pageSize").val(pageSize);
@@ -228,10 +229,11 @@
 	}
 	
 	
+	/*删除接口信息配置*/
 	function delSetting(){
 		var ids = new Array();
-		$("input[name='id']:checked").each(function(i){
-			ids[i]=$(this).val();
+		$("input[name='id']:checked").each(function(index){
+			ids[index]=$(this).val();
 			
 		})
 		console.log(ids.length);
@@ -246,7 +248,7 @@
 						 url : "delSetting.do?ids="+ids,
 					  success: function (data) {
 						   layer.msg('删除成功', {icon: 6});
-						    location.reload();
+						   setTimeout(function(){location.reload();},1500); //1.5s后刷新页面
 						 }
 					});  
 				  

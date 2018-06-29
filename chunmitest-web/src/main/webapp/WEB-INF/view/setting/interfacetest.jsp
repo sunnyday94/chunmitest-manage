@@ -22,8 +22,7 @@
 			<h4>注意</h4>
 			<ul>
 				<li>URL和期望结果为必填项，其他为选填项</li>
-				<li>请求参数为json格式的字符串</li>
-				<li>比较结果:是期望结果和测试结果作对比</li>
+				<li>请求参数为json</li>
 			</ul>
 		</div>
 		<div class="filter_area">
@@ -52,7 +51,7 @@
 				<div class="form-group" style="margin-left: 10px;">
 					<div class="input-group">
 						<span class="input-group-addon">请求参数</span> 
-						<input type="text" class="form-control" id="requestParams" name="requestParams" placeholder="输入请求参数" value ="${setting.requestParams}">
+						<input type="text" class="form-control" id="requestParams" name="requestParams" placeholder="输入请求参数" value ='${setting.requestParams}'>
 					</div>
 				</div>
 				<br/>
@@ -108,6 +107,7 @@
 					</button>
 				</div>
 				<input id="mark" name="mark" type="hidden" value="${mark }"/>
+				<input id="requestJson" name="requestJson" type="hidden" value=""/>
 			</form>
 		</div>
 		<div id="listdata" class="dataTables_wrapper form-inline dt-bootstrap"></div>
@@ -134,10 +134,12 @@
 		var regConcurrentNum = /^\+?[1-9]\d*$/;
 		if(url == null || url == ''){
 			layer.msg("URL不能为空", {time : 1000});
-			return;			
+			return;	
+		/*
 		}else if(expectedResult==null || expectedResult == ''){
 			layer.msg("期望结果不能为空",{time : 1000});
 			return;
+		*/
 		}else if(url!=null && url!=''){
 			if(!regUrl.test(url)){
 				 layer.msg("这网址不是以http://https://开头，或者不是网址！",{time:1000});
@@ -163,6 +165,10 @@
 		var url = $('#requestUrl').val();     // url
 		var concurrentNum = $('#concurrentNum').val();   // 并发数 
 		var expectedResult = $('#expectedResult').val();  //期望结果
+		var requestParams = $('#requestParams').val();   //请求参数
+		if(requestParams!=null && requestParams != ''){
+			$('#requestJson').val(requestParams.replace(/\"/g,"&quot;").replace(/'/g,"&apos;"));
+		}
 		$('#mark').val("1");
 		//测试前验证配置参数
 		checkConfig(url,concurrentNum,expectedResult);

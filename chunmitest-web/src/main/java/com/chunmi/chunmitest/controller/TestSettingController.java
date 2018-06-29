@@ -44,7 +44,7 @@ public class TestSettingController {
 	/***
 	 * 
 	 * @description: <p class="detail"></p>
-	 * @author: <a href="mailto:zhangqian@chunmi.com ">zhangqian</a>
+	 * @author: <a href="mailto:wangzhifang@chunmi.com ">zhangqian</a>
 	 * @date: 2017年5月31日-下午14:28:22
 	 * @param @return
 	 * @return ModelAndView
@@ -64,7 +64,7 @@ public class TestSettingController {
 	/***
 	 * 
 	 * @description: <p class="detail"></p>
-	 * @author: <a href="mailto:zhangqian@chunmi.com ">zhangqian</a>
+	 * @author: <a href="mailto:wangzhifang@chunmi.com ">zhangqian</a>
 	 * @date: 2017年5月31日-下午14:28:22
 	 * @param @return
 	 * @return ModelAndView
