@@ -13,16 +13,17 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<!-- data source configuration -->
-		<property name="initialSize" value="200" /><!-- initial connections -->
-		<property name="maxActive" value="800" /><!-- MAX connections -->
-		<property name="maxIdle" value="100" /><!-- MAX idle connections -->
-		<property name="minIdle" value="50" /><!-- MIN idle connections -->
+		<property name="initialSize" value="200" /><!-- 初始化创建的连接数，当不够时再去创建 -->
+		<property name="maxActive" value="800" /><!-- 最大连接数量，连接数连不能超过该值  -->
+		<property name="maxIdle" value="100" /><!-- 最大空闲连接，当空闲连接超过该值时就挨个关闭多余的连接，但不能小于minldle,该属性在Druid连接池已不再使用，配置了也没有效果 --> 
+		<property name="minIdle" value="50" /><!-- 最小连接数量 -->
+		<property name="maxWait" value="0"/> <!-- 最大等待时间,设置参数为0或者负数使得无限等待 -->
 		<!-- 处理mysql 8小时自动断开连接的问题 -->
-		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
-		<property name="validationQuery" value="select 1" />
-		<property name="timeBetweenEvictionRunsMillis" value="20000" />
+		<property name="testWhileIdle" value="true" /> <!-- 是否超时检测 -->
+		<property name="testOnBorrow" value="false" /> <!-- 申请连接检测 -->
+		<property name="testOnReturn" value="false" /> <!-- 归还连接检测 -->
+		<property name="validationQuery" value="select 1" /> <!-- 校验用sql语句 -->
+		<property name="timeBetweenEvictionRunsMillis" value="20000" /> <!-- 空闲时间 -->
 		<property name="numTestsPerEvictionRun" value="100" />
 		<!--属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j 防御SQL注入的filter:wall -->
 		<property name="filters" value="${druid.filters}" />
